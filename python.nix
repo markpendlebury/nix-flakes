@@ -18,7 +18,7 @@ in pkgs.mkShell {
   ];
 
   shellHook = ''
-    # Create and activate virtual environment
+   # Create and activate virtual environment
     python -m venv venv
     source venv/bin/activate
 
@@ -45,15 +45,10 @@ in pkgs.mkShell {
     # Note: We use string substitution to get the correct Python version in the path
     export PYTHONPATH="$VIRTUAL_ENV/lib/python${pythonVersion}/site-packages:$PWD:$PYTHONPATH"
 
-    # Print debug information
-    echo "Virtual Environment: $VIRTUAL_ENV"
-    echo "Python: $(which python)"
-    echo "Pip: $(which pip)"
-    echo "Python version: $(python --version)"
-
     echo "Verifying boto3 installation:"
     python -c "import boto3; print(boto3.__file__)"
 
     echo "Development environment setup complete"
+    echo "You are running python version: $(python --version)"  
   '';
 }
