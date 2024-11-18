@@ -2,6 +2,16 @@
 
 This repository contains Nix flake configurations for various development environments.
 
+# Why Nix Shell?
+Nix shell provides reproducible development environments that solve common development challenges:
+
+- Consistency: Every environment instance gets identical dependencies and tools
+- Isolation: Projects don't interfere with system packages or each other
+- Versioning: Precise control over tool versions and dependencies
+- Declarative: Environment defined in code, eliminating "works on my machine"
+- Speed: Cached builds and downloads mean fast environment setup
+
+
 ## Available Environments
 
 ### Python Development (`python.nix`)
