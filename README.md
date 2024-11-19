@@ -45,5 +45,3 @@ Each environment should:
 - Nix package manager
 - Configured nixpkgs channel
 
-## Contributing
-
