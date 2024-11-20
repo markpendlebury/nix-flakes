@@ -22,5 +22,5 @@
 
 # Dotnet specific
 *.nuget
-*nuget
+*NuGet
 *.dotnet
