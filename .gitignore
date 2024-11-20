@@ -13,8 +13,14 @@
 .vscode/
 *.swp
 
-# python specific
+# Python specific
 *venvi
 
-# rust specific
+# Rust specific
 *.cargo
+
+
+# Dotnet specific
+*.nuget
+*nuget
+*.dotnet
