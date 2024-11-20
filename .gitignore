@@ -1,0 +1,20 @@
+# Go specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.go/
+
+# IDE specific
+.idea/
+.vscode/
+*.swp
+
+# python specific
+*venvi
+
+# rust specific
+*.cargo
