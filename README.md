@@ -94,15 +94,6 @@ A shared ZSH configuration used by all environments.
 - Git integration
 - Reusable across all development environments
 
-## Adding New Environments
-
-Each environment should:
-1. Have its own directory
-2. Include a README explaining specific features/usage
-3. Contain required Nix configuration files
-4. Document any prerequisites or dependencies
-5. Import and use the shared ZSH configuration
-
 ## Prerequisites
 
 - Nix package manager
