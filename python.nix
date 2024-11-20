@@ -1,13 +1,16 @@
-# shell.nix
 { pkgs ? import <nixpkgs> {}, pythonVersion ? "3.10" }:
 
 let
-  # Convert version string to package attribute
+  # Import ZSH configuration
+  zshConfig = import ./zsh-config.nix { inherit pkgs; };
+  
+  # Python setup
   pythonPkg = if pkgs.lib.hasAttr "python${builtins.replaceStrings ["."] [""] pythonVersion}" pkgs
               then pkgs.lib.getAttr "python${builtins.replaceStrings ["."] [""] pythonVersion}" pkgs
               else throw "Python version ${pythonVersion} not found";
 in pkgs.mkShell {
   buildInputs = [
+    # Python packages
     pythonPkg
     pythonPkg.pkgs.pip
     pythonPkg.pkgs.virtualenv
@@ -15,10 +18,13 @@ in pkgs.mkShell {
     pythonPkg.pkgs.pytest
     pkgs.which
     pkgs.git
-  ];
+  ] ++ zshConfig.packages;  # Add ZSH packages
 
   shellHook = ''
-   # Create and activate virtual environment
+    # Set the environment name
+    ${zshConfig.envNameFunction "python"}
+
+    # Python Environment Setup
     python -m venv venv
     source venv/bin/activate
 
@@ -42,13 +48,12 @@ in pkgs.mkShell {
     fi
 
     # Set PYTHONPATH to prioritize virtualenv and current directory
-    # Note: We use string substitution to get the correct Python version in the path
     export PYTHONPATH="$VIRTUAL_ENV/lib/python${pythonVersion}/site-packages:$PWD:$PYTHONPATH"
 
-    echo "Verifying boto3 installation:"
-    python -c "import boto3; print(boto3.__file__)"
-
     echo "Development environment setup complete"
-    echo "You are running python version: $(python --version)"  
+    echo "You are running python version: $(python --version)"
+
+    # Apply ZSH configuration
+    ${zshConfig.config}
   '';
 }
