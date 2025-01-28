@@ -3,7 +3,11 @@
 let
   # Import ZSH configuration
   zshConfig = import ./zsh-config.nix { inherit pkgs; };
+
+  # Output the pythonVersion variable value to the terminal: 
   
+  
+
   # Python setup
   pythonPkg = if pkgs.lib.hasAttr "python${builtins.replaceStrings ["."] [""] pythonVersion}" pkgs
               then pkgs.lib.getAttr "python${builtins.replaceStrings ["."] [""] pythonVersion}" pkgs
@@ -14,7 +18,7 @@ in pkgs.mkShell {
     pythonPkg
     pythonPkg.pkgs.pip
     pythonPkg.pkgs.virtualenv
-    pythonPkg.pkgs.black
+    # pythonPkg.pkgs.black
     pythonPkg.pkgs.pytest
     pkgs.which
     pkgs.git
@@ -25,7 +29,8 @@ in pkgs.mkShell {
     ${zshConfig.envNameFunction "python"}
 
     # Python Environment Setup
-    python -m venv venv
+    # Use the specific Python version to create the venv
+    ${pythonPkg}/bin/python3 -m venv venv
     source venv/bin/activate
 
     # Ensure virtualenv is properly activated
@@ -33,7 +38,7 @@ in pkgs.mkShell {
     export PATH="$VIRTUAL_ENV/bin:$PATH"
 
     # Upgrade pip
-    python -m pip install --upgrade pip
+    # python -m pip install --upgrade pip
 
     # Install test requirements first
     if [ -f test-requirements.txt ]; then
@@ -52,6 +57,9 @@ in pkgs.mkShell {
 
     echo "Development environment setup complete"
     echo "You are running python version: $(python --version)"
+
+    echo "DEBUG:"
+    echo "Python Version: $pythonVersion"
 
     # Apply ZSH configuration
     ${zshConfig.config}
