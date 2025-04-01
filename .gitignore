@@ -14,11 +14,10 @@
 *.swp
 
 # Python specific
-*venvi
+*venv
 
 # Rust specific
 *.cargo
-
 
 # Dotnet specific
 *.nuget

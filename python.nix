@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}, pythonVersion ? "3.10" }:
+{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz") {}, pythonVersion ? "3.10" }:
 
 let
   # Import ZSH configuration
@@ -26,7 +26,7 @@ in pkgs.mkShell {
 
   shellHook = ''
     # Set the environment name
-    ${zshConfig.envNameFunction "python"}
+    zshConfig.envNameFunction="python"
 
     # Python Environment Setup
     # Use the specific Python version to create the venv
@@ -62,6 +62,6 @@ in pkgs.mkShell {
     echo "Python Version: $pythonVersion"
 
     # Apply ZSH configuration
-    ${zshConfig.config}
+    zshConfig.config
   '';
 }

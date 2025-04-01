@@ -1,5 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
-
+{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz") {}, pythonVersion ? "3.10" }:
 let
   # Import ZSH configuration
   zshConfig = import ./zsh-config.nix { inherit pkgs; };
